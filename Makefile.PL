@@ -23,10 +23,11 @@ if ($mm_version =~ /_/) {
 sub MY::postamble {
     my $ret = "";
 
-    # regtest
+    # regtest (dmake/make compatible; build/test [but not regtest] compatible with nmake)
     $ret .= <<EOD;
-regtest .SILENT : all
-	cd regtest && \$(MAKE) \$(PASTHRU) test
+.PHONY  : regtest
+regtest : all
+	\$(NOECHO) cd regtest && \$(MAKE) \$(PASTHRU) test
 
 EOD
 
